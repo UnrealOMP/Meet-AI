@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MeetAI — AI-Powered Meeting Understanding Platform
 
-## Getting Started
+MeetAI is a full-stack AI application that processes meeting recordings asynchronously, generates transcripts, and allows users to interact with an AI agent grounded on the meeting content.
 
-First, run the development server:
+The project focuses on real-world engineering problems such as background job processing, UI synchronization, authentication, and persistent AI context — not just AI demos.
 
-```bash
+🚀 What Problem Does This Solve?
+
+Meetings often contain valuable decisions and context that are lost after the call ends.
+
+MeetAI helps users:
+
+Transcribe meeting recordings reliably
+
+View transcripts and summaries once processing completes
+
+Ask AI questions grounded strictly in the meeting transcript
+
+Track action items extracted from meetings
+
+Unlike simple AI demos, MeetAI handles long-running tasks and async state coordination correctly.
+
+🧠 Key Features
+
+Async Audio Transcription
+
+Audio uploads are processed in the background
+
+Python-based transcription (faster-whisper)
+
+Clear meeting status lifecycle:
+new → uploaded → transcribing → done
+
+Grounded AI Agent
+
+AI answers are strictly grounded on transcript content
+
+Prevents hallucination
+
+Chat history is persisted per meeting
+
+Live UI Synchronization
+
+UI automatically refreshes while transcription is running
+
+Transcript appears once background processing completes
+
+Authentication & Authorization
+
+Secure user sessions
+
+Users can only access their own meetings
+
+Action Items
+
+AI-generated and manually created action items
+
+Completion tracking
+
+🏗 Architecture Overview
+Frontend
+
+Next.js 15 (App Router)
+
+Server Components + Server Actions
+
+Tailwind CSS + shadcn/ui
+
+Backend
+
+Server Actions for mutations
+
+Background job queue (single-run per meeting)
+
+PostgreSQL with Drizzle ORM
+
+AI & Transcription
+
+Python transcription worker (faster-whisper)
+
+AI chat using transcript-grounded prompts
+
+Persistent chat memory per meeting
+
+🔄 Async Processing Flow
+
+User uploads meeting audio
+
+Meeting status updates to uploaded
+
+Background transcription job starts
+
+Status changes to transcribing
+
+Transcript is saved to database
+
+Status updates to done
+
+UI refreshes and displays transcript automatically
+
+This avoids blocking requests and ensures reliability for long-running jobs.
+
+⚠️ Known Limitations
+
+Auto-refresh may briefly continue if transcription is triggered multiple times rapidly
+
+Manual page refresh always resolves UI state
+
+Real-time streaming transcription is intentionally out of scope for this version
+
+These tradeoffs were made to keep async logic explicit and understandable.
+
+🧪 Local Development
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+App runs at:
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Environment variables are required for:
 
-## Learn More
+Database connection
 
-To learn more about Next.js, take a look at the following resources:
+Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+AI provider keys
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🎯 Why This Project Exists
 
-## Deploy on Vercel
+This project was built to explore:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Async system design in modern Next.js
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Coordinating background jobs with UI state
+
+Grounded AI usage in production-like systems
+
+Tradeoffs between complexity and reliability
+
+It is intentionally engineering-focused, not a polished SaaS product.
+
+🔮 Possible Future Improvements
+
+Shared meeting access (collaborators)
+
+AI usage limits and model routing
+
+Analytics dashboard
+
+Streaming transcription
+
+Team-level features
+
+📌 Summary
+
+MeetAI is not just a transcription demo — it is a practical example of how to build reliable, async AI systems using modern web architecture.
