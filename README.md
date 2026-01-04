@@ -1,90 +1,96 @@
-MeetAI — AI-Powered Meeting Understanding Platform
+MeetAI — Async AI Meeting Intelligence Platform
 
-MeetAI is a full-stack AI application that processes meeting recordings asynchronously, generates transcripts, and allows users to interact with an AI agent grounded on the meeting content.
+MeetAI is a full-stack AI application that processes meeting recordings asynchronously, generates transcripts, and enables users to interact with an AI assistant grounded strictly in meeting content.
 
-The project focuses on real-world engineering problems such as background job processing, UI synchronization, authentication, and persistent AI context — not just AI demos.
+The project focuses on real-world engineering challenges such as background job processing, async UI coordination, authentication, and persistent AI context — not just AI demos.
 
-🚀 What Problem Does This Solve?
+🔍 Problem Statement
 
-Meetings often contain valuable decisions and context that are lost after the call ends.
+Meetings generate valuable information, but:
 
-MeetAI helps users:
+Context is easily lost
 
-Transcribe meeting recordings reliably
+Action items are forgotten
 
-View transcripts and summaries once processing completes
+Searching recordings is inefficient
 
-Ask AI questions grounded strictly in the meeting transcript
+MeetAI solves this by converting meeting audio into structured, queryable knowledge.
 
-Track action items extracted from meetings
+✨ Core Features
+🎧 Async Transcription
 
-Unlike simple AI demos, MeetAI handles long-running tasks and async state coordination correctly.
+Upload meeting audio
 
-🧠 Key Features
+Background transcription using Python (faster-whisper)
 
-Async Audio Transcription
+Non-blocking processing with a clear lifecycle:
 
-Audio uploads are processed in the background
-
-Python-based transcription (faster-whisper)
-
-Clear meeting status lifecycle:
 new → uploaded → transcribing → done
 
-Grounded AI Agent
+🤖 Transcript-Grounded AI Chat
 
-AI answers are strictly grounded on transcript content
+Ask questions about the meeting
+
+AI responses are strictly grounded in transcript content
 
 Prevents hallucination
 
 Chat history is persisted per meeting
 
-Live UI Synchronization
+🧠 AI Summary & Action Items
 
-UI automatically refreshes while transcription is running
+Automatic meeting summary after transcription
 
-Transcript appears once background processing completes
+Action items stored and tracked
 
-Authentication & Authorization
+Completion state persisted in database
 
-Secure user sessions
+🔐 Authentication & Authorization
 
-Users can only access their own meetings
+Secure user authentication
 
-Action Items
+Meetings are private by default
 
-AI-generated and manually created action items
+Users can only access their own data
 
-Completion tracking
+🔄 UI Synchronization
 
-🏗 Architecture Overview
+UI auto-refreshes while transcription is running
+
+Transcript appears once background job completes
+
+Manual refresh always resolves state
+
+🏗 Architecture
 Frontend
 
 Next.js 15 (App Router)
 
-Server Components + Server Actions
+Server Components & Server Actions
 
 Tailwind CSS + shadcn/ui
 
 Backend
 
+PostgreSQL
+
+Drizzle ORM
+
 Server Actions for mutations
 
-Background job queue (single-run per meeting)
+Single-run background job queue per meeting
 
-PostgreSQL with Drizzle ORM
-
-AI & Transcription
+AI & Processing
 
 Python transcription worker (faster-whisper)
 
-AI chat using transcript-grounded prompts
+AI chat using transcript-scoped prompts
 
-Persistent chat memory per meeting
+Persistent AI context per meeting
 
 🔄 Async Processing Flow
 
-User uploads meeting audio
+User uploads meeting recording
 
 Meeting status updates to uploaded
 
@@ -92,23 +98,23 @@ Background transcription job starts
 
 Status changes to transcribing
 
-Transcript is saved to database
+Transcript saved to database
 
 Status updates to done
 
-UI refreshes and displays transcript automatically
+UI refresh displays transcript automatically
 
-This avoids blocking requests and ensures reliability for long-running jobs.
+This design avoids blocking requests and supports long-running tasks safely.
 
 ⚠️ Known Limitations
 
-Auto-refresh may briefly continue if transcription is triggered multiple times rapidly
+If transcription is triggered multiple times rapidly, UI auto-refresh may continue briefly
 
-Manual page refresh always resolves UI state
+Manual refresh always resolves final state
 
-Real-time streaming transcription is intentionally out of scope for this version
+Real-time streaming transcription is intentionally out of scope
 
-These tradeoffs were made to keep async logic explicit and understandable.
+These are known tradeoffs to keep async logic explicit and debuggable.
 
 🧪 Local Development
 npm install
@@ -116,41 +122,45 @@ npm run dev
 
 
 App runs at:
+
 http://localhost:3000
+
 
 Environment variables are required for:
 
 Database connection
 
-Authentication
+Authentication secrets
 
 AI provider keys
 
-🎯 Why This Project Exists
+🎯 Engineering Focus
 
 This project was built to explore:
 
 Async system design in modern Next.js
 
-Coordinating background jobs with UI state
+Background job coordination
 
-Grounded AI usage in production-like systems
+Database-driven UI state
 
-Tradeoffs between complexity and reliability
+Safe, grounded AI usage
 
-It is intentionally engineering-focused, not a polished SaaS product.
+Tradeoffs between reliability and complexity
 
-🔮 Possible Future Improvements
+It is intentionally engineering-focused, not a polished SaaS.
 
-Shared meeting access (collaborators)
+🚀 Future Improvements (Optional)
 
-AI usage limits and model routing
+Team-based meeting sharing
+
+AI usage limits & model routing
 
 Analytics dashboard
 
 Streaming transcription
 
-Team-level features
+Real-time collaboration
 
 📌 Summary
 
