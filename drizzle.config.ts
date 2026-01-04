@@ -1,10 +1,11 @@
+// drizzle.config.ts
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 import type { Config } from "drizzle-kit";
 
 const config = {
-  out: "./drizzle",
   schema: "./src/db/schema.ts",
+  out: "./drizzle/migrations", // 🔥 THIS IS THE FIX
   dialect: "postgresql",
   dbCredentials: {
     url: process.env.DATABASE_URL!,
@@ -12,3 +13,4 @@ const config = {
 } satisfies Config;
 
 export default config;
+  
