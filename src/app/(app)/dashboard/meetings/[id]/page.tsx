@@ -1,8 +1,5 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { db } from "@/db";
-import { chatMessages } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import AiQuestionForm from "./AiQuestionForm";
 
 import { auth } from "@/lib/auth";
@@ -14,7 +11,6 @@ import { getChatForMeeting } from "@/server/queries/chat";
 
 import { createActionItem } from "@/server/actions/create-action-item";
 import { toggleActionItem } from "@/server/actions/toggle-action-item";
-import { askMeetingQuestion } from "@/server/actions/ask-meeting-question";
 import { startTranscription } from "@/server/actions/start-transcription";
 
 

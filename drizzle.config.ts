@@ -1,7 +1,10 @@
 // drizzle.config.ts
-import "dotenv/config";
+import dotenv from "dotenv";
 import { defineConfig } from "drizzle-kit";
 import type { Config } from "drizzle-kit";
+
+dotenv.config({ path: ".env.local" });
+dotenv.config();
 
 const config = {
   schema: "./src/db/schema.ts",
